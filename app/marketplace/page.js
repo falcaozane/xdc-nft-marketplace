@@ -76,11 +76,11 @@ export default function Marketplace() {
             <>
               <div className="my-5">
                 <h2 className="text-4xl text-center text-white mb-7 uppercase">
-                  NFT Marketplace
+                  Marketplace
                 </h2>
                 {loading ? (
                   <div className="flex justify-center items-center h-64">
-                    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-white"></div>
+                    <div className="w-32 h-32 border-4 border-dashed rounded-full animate-spin border-white mt-14"></div>
                   </div>
                 ) : items.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

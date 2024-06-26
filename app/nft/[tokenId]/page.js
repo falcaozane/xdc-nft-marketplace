@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 import axios from "axios";
 import GetIpfsUrlFromPinata from "@/utils/index";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function NFTPage() {
   const params = useParams();
@@ -82,11 +83,13 @@ export default function NFTPage() {
       const salePrice = ethers.parseUnits(item.price, "ether").toString();
       setBtnContent("Processing...");
       setmsg("Buying the NFT... Please Wait (Up to 5 mins)");
+      toast.info("Buying the NFT... Please Wait (Up to 5 mins)")
       let transaction = await contract.executeSale(tokenId, {
         value: salePrice,
       });
       await transaction.wait();
-      alert("You successfully bought the NFT!");
+      toast.success("You successfully bought the NFT!")
+      //alert("You successfully bought the NFT!");
       setmsg("");
       setBtnContent("Buy NFT");
       router.push("/profile");
@@ -102,7 +105,7 @@ export default function NFTPage() {
           <div className="bg-white max-w-6xl w-full mx-2 md:mx-auto shadow-lg rounded-lg p-4 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="w-full ">
-                <Image src={item?.image} alt="" width={800} height={520} className="w-full h-auto rounded-lg" />
+                <Image src={item?.image} alt="" width={800} height={520} className="w-full h-auto rounded-lg object-cover" loading="lazy" />
               </div>
               <div className="w-full md:w-1/2 flex flex-col justify-between md:p-4">
                 <div className="space-y-4">
@@ -115,8 +118,8 @@ export default function NFTPage() {
                   <div className="text-xl font-bold text-orange-600">
                     <p>Price: {item?.price} ETH</p>
                   </div>
-                  <div className=" text-sm md:text-xl font-bold text-orange-600">
-                    <p>Seller: {item?.seller}</p>
+                  <div className="flex text-xl font-bold text-orange-600 items-center">
+                    <p>Seller: </p><p className="text-sm mx-2">{item?.seller}</p>
                   </div>
                 </div>
                 <div className="mt-4 text-center">

@@ -3,6 +3,8 @@ import "./globals.css";
 import { WalletContextProvider } from "@/context/wallet";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
       <WalletContextProvider>
         <body className={inter.className}>
           <Header />
+          <ToastContainer position="top-left" autoClose={3000} />
             {children}
           <Footer />
         </body>

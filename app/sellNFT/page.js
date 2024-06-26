@@ -5,6 +5,7 @@ import { uploadFileToIPFS, uploadJSONToIPFS } from "@/utils/pinata";
 import marketplace from "@/app/marketplace.json";
 import { ethers } from "ethers";
 import { WalletContext } from "@/context/wallet";
+import { toast } from "react-toastify";
 
 export default function SellNFT() {
   const [formParams, updateFormParams] = useState({
@@ -68,6 +69,7 @@ export default function SellNFT() {
       if (metadataURL === -1) return;
 
       updateMessage("Uploading NFT...Please dont click anythying!");
+      //toast.warning("Uploading NFT...Please dont click anythying!")
 
       let contract = new ethers.Contract(
         marketplace.address,
@@ -91,33 +93,33 @@ export default function SellNFT() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-200">
+    <div className="flex flex-col min-h-screen bg-slate-300">
       {isConnected ? (
         <div className="flex flex-col items-center justify-center flex-grow mx-2">
           <div className="bg-gray-200 w-full max-w-lg p-5 shadow-lg rounded-lg my-3 md:my-5 mx-2">
             <h2 className="text-4xl text-orange-600 mt-5 mb-8 text-center uppercase font-extrabold">Upload your NFT</h2>
-            <div className="mb-8">
-              <div className="mb-4">
+            <div className="mb-4">
+              <div className="mb-2">
                 <label className="block text-left mx-1 text-lg font-bold mb-2 text-orange-600">
                   NFT name
                   <span className="text-red-600 text-base">*</span>
                 </label>
                 <input
                   type="text"
-                  className="w-full p-3 text-base bg-inherit text-black border border-black rounded-lg"
+                  className="w-full px-3 py-2 text-base bg-inherit text-black border border-black rounded-lg"
                   value={formParams.name}
                   onChange={(e) =>
                     updateFormParams({ ...formParams, name: e.target.value })
                   }
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block text-left mx-1 text-lg font-bold mb-2 text-orange-600">
                   NFT description
                   <span className="text-red-600 text-base">*</span>
                 </label>
                 <textarea
-                  className="w-full p-3 text-base bg-inherit text-black border border-black rounded-lg h-32"
+                  className="w-full px-3 py-2 text-base bg-inherit text-black border border-black rounded-lg h-32"
                   value={formParams.description}
                   onChange={(e) =>
                     updateFormParams({
@@ -127,45 +129,44 @@ export default function SellNFT() {
                   }
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block text-left mx-1 text-lg font-bold mb-2 text-orange-600">
-                  Price (in Eth)
+                  Price ( in XDC)
                   <span className="text-red-600 text-base">*</span>
                 </label>
                 <input
                   type="number"
-                  className="w-full p-3 text-base bg-inherit text-black border border-black rounded-lg"
+                  className="w-full px-3 py-2 text-base bg-inherit text-black border border-black rounded-lg"
                   value={formParams.price}
                   onChange={(e) =>
                     updateFormParams({ ...formParams, price: e.target.value })
                   }
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block text-left mx-1 text-lg font-bold mb-2 text-orange-600">
                   Upload image
                   <span className="text-red-600 text-base">*</span>
                 </label>
                 <input
                   type="file"
-                  className="w-full p-3 text-base bg-inherit text-black border border-black rounded-lg"
+                  className="w-full px-3 py-2 text-base bg-inherit text-black border border-black rounded-lg"
                   onChange={onFileChange}
                 />
               </div>
-              <br />
-              <div className="text-red-600 font-medium text-center mt-2">{message}</div>
-              <button
-                onClick={listNFT}
-                type="submit"
-                className={`border-none rounded-lg w-full mt-4 text-lg font-bold py-3 px-6 flex items-center justify-center ${
-                  btn ? "bg-orange-600 text-white cursor-pointer hover:bg-orange-700" : "bg-gray-500 text-gray-300 cursor-not-allowed opacity-50"
-                }`}
-              >
-                {btnContent === "Processing..." && (
-                  <span className="inline-block border-4 border-gray-300 border-l-white rounded-full mr-2 w-6 h-6 animate-spin" />
-                )}
-                {btnContent}
-              </button>
+              <div className="text-red-600 font-medium text-center my-2">{message}</div>
+                <button 
+                  onClick={listNFT}
+                  type="submit"
+                  className={`border-none rounded-lg w-full mt-4 text-lg font-bold py-3 px-6 flex items-center justify-center ${
+                    btn ? "bg-orange-600 text-white cursor-pointer hover:bg-orange-700" : "bg-gray-500 text-gray-300 cursor-not-allowed opacity-50"
+                  }`}
+                >
+                  {btnContent === "Processing..." && (
+                    <span className="inline-block border-4 border-gray-300 border-l-white rounded-full mr-2 w-6 h-6 animate-spin" />
+                  )}
+                  {btnContent}
+                </button>
             </div>
           </div>
         </div>
