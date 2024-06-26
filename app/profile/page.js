@@ -60,7 +60,7 @@ export default function Profile() {
   }, [isConnected]);
 
   return (
-    <div className="flex flex-col h-full bg-gray-200">
+    <div className="flex flex-col min-h-screen bg-gray-200">
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="max-w-7xl w-full mx-auto p-4 flex-grow overflow-y-auto">
           {isConnected ? (
